@@ -1,0 +1,56 @@
+.section1,
+.section2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6em;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+img {
+  width: 500px;
+}
+.section1_btn {
+  display: flex;
+  gap: 1.5em;
+}
+h2 {
+  font-weight: bold;
+  font-family: "Inter", sans-serif;
+}
+form {
+  width: 80%;
+  margin: 30px auto;
+}
+input[type="text"] {
+  padding: 20px;
+}
+
+/* Section 3 */
+.section3 {
+  display: flex;
+  gap: 4em;
+}
+.nutritious {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2em;
+}
+.section3Image {
+  width: 200px;
+  border-radius: 50%;
+  height: 200px;
+  margin: auto;
+  object-fit: cover;
+}
+.section3 h5 {
+  font-weight: 600;
+}
+.section3 h5,
+.section3 p {
+  text-align: center;
+}
+.section3 p {
+  font-size: 0.8rem;
+}
