@@ -10,7 +10,7 @@ const Footer = () => {
         <h1>Meals On Wheels</h1>
         <footer>
           <div>
-            <p>
+            <p className="footer-text">
               This website, operated by MerryMeal, is for informational purposes
               only. Information is subject to change, and MerryMeal is not
               equipped to handle individual meal complaints.
