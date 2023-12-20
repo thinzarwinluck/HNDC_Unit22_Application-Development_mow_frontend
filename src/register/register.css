@@ -1,0 +1,54 @@
+.register_form {
+  background-image: url("../img/registeration.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.pan-register {
+  width: 50%;
+  margin: 0;
+}
+
+.register_form h1,
+h4 {
+  text-align: center;
+}
+.register_form h1 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+.register_form h4 {
+  font-size: 1rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="pre-password"],
+input[type="password"],
+textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+  display: block;
+  margin: 15px 0;
+  border: 2px solid #fa492d;
+}
+input[type="text"],
+input[type="email"],
+input[type="pre-password"],
+input[type="password"],
+textarea:focus {
+  outline: none;
+}
+::placeholder {
+  font-size: 0.9rem;
+  padding-left: 20px;
+}
