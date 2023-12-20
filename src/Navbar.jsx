@@ -14,25 +14,26 @@ const Navbar = () => {
             <NavLink to="/about">About</NavLink>
           </li>
           <li>
-            <NavLink to="/meal">Find Meals</NavLink>
+            <NavLink to="/register">Find Meals</NavLink>
           </li>
           <li>
             <NavLink to="/">
               <h1> Meals On Wheels</h1>
             </NavLink>
           </li>
-
+          {/* Dropdown */}
           <li>
-            <NavLink to="/">
+            <NavLink to="">
               <div class="dropdown">
                 <button class="drop_btn">Programs</button>
                 <div class="dropdown-content">
-                  <a href="">Volunteer</a>
-                  <a href="">Donate</a>
+                  <NavLink to="/register">Volunteer</NavLink>
+                  <NavLink to="/register">Donate</NavLink>
                 </div>
               </div>
             </NavLink>
           </li>
+
           <li>
             <NavLink to="/login">
               <button className="login">Login</button>
