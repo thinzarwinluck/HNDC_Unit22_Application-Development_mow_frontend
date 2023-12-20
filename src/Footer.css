@@ -1,4 +1,4 @@
-h1 {
+.footer_logo {
   font-family: "Italianno", cursive;
   font-size: 3.3rem;
   color: #e22104;
@@ -6,9 +6,9 @@ h1 {
 footer {
   display: flex;
   justify-content: space-evenly;
-  /* padding: 30px 5%; */
   align-items: center;
   gap: 6em;
+  margin-bottom: 10px;
 }
 .social_icon {
   display: flex;
@@ -19,4 +19,11 @@ footer {
 .social_icon a {
   border: none;
   border-radius: 50%;
+}
+.copyright {
+  text-align: center;
+  font-weight: 600;
+  padding: 20px;
+  background-color: #e22104;
+  color: white;
 }

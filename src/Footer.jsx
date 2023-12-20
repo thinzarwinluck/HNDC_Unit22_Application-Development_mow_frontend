@@ -6,11 +6,11 @@ import "./Navbar.css";
 const Footer = () => {
   return (
     <div>
-      <div className="container">
-        <h1>Meals On Wheels</h1>
+      <div className="pan-container">
+        <h1 className="footer_logo">Meals On Wheels</h1>
         <footer>
           <div>
-            <p >
+            <p>
               This website, operated by MerryMeal, is for informational purposes
               only. Information is subject to change, and MerryMeal is not
               equipped to handle individual meal complaints.
@@ -61,6 +61,10 @@ const Footer = () => {
           </div>
         </footer>
       </div>
+      <h5 className="copyright">
+        {" "}
+        &copy; 2023 Copyright | All Rights Reserved
+      </h5>
     </div>
   );
 };

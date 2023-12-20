@@ -1,6 +1,6 @@
 nav ul {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   list-style-type: none;
   align-items: center;
   padding: 30px;
@@ -8,7 +8,6 @@ nav ul {
 
 nav ul li {
   display: inline-block;
-  margin-left: 0.5rem;
 }
 nav ul li h1 {
   font-family: "Italianno", cursive;
@@ -34,11 +33,12 @@ button:hover {
 button {
   background-color: #e22104;
   color: white;
-  padding: 15px;
-  font-size: 16px;
+  padding: 13px;
+  font-size: 15px;
   border: none;
   cursor: pointer;
   border-radius: 3px;
+  width: 100px;
 }
 
 .dropdown {
@@ -50,7 +50,7 @@ button {
   display: none;
   position: absolute;
   background-color: #e22104;
-  min-width: 108px;
+  width: 100px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   border-radius: 3px;

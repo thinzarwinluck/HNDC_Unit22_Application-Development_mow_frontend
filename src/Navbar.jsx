@@ -4,7 +4,7 @@ import "./Navbar.css";
 
 const Navbar = () => {
   return (
-    <div className="container">
+    <div className="pan-container">
       <nav>
         <ul>
           <li>
@@ -14,7 +14,7 @@ const Navbar = () => {
             <NavLink to="/about">About</NavLink>
           </li>
           <li>
-            <NavLink to="/">Find Meals</NavLink>
+            <NavLink to="/meal">Find Meals</NavLink>
           </li>
           <li>
             <NavLink to="/">
@@ -27,20 +27,20 @@ const Navbar = () => {
               <div class="dropdown">
                 <button class="drop_btn">Programs</button>
                 <div class="dropdown-content">
-                  <a href="#">Volunteer</a>
-                  <a href="#">Donate</a>
+                  <a href="">Volunteer</a>
+                  <a href="">Donate</a>
                 </div>
               </div>
             </NavLink>
           </li>
           <li>
-            <NavLink to="/">
-              <button className="register">Login</button>
+            <NavLink to="/login">
+              <button className="login">Login</button>
             </NavLink>
           </li>
           <li>
-            <NavLink to="/">
-              <button className="login">Register</button>
+            <NavLink to="/register">
+              <button className="register">Register</button>
             </NavLink>
           </li>
         </ul>

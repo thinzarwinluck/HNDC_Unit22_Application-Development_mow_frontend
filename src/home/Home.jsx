@@ -4,12 +4,17 @@ import section2Image from "../img/section2.jpg";
 import nutritiousImage from "../img/nuturious.jpg";
 import friendlyvisitImage from "../img/friendlyvisit.jpg";
 import safetycheckImage from "../img/safetycheck.jpg";
+import logo1 from "../img/logo1.jpg";
+import logo2 from "../img/logo2.png";
+import logo3 from "../img/logo3.png";
+import logo4 from "../img/logo4.png";
+import logo5 from "../img/logo5.jpg";
 
 import "./Home.css";
 
 const Home = () => {
   return (
-    <div className="container">
+    <div className="pan-container">
       <div className="section1">
         <div className="section1_text">
           <h2>Welcome to our Meals on Wheels</h2>
@@ -19,19 +24,22 @@ const Home = () => {
             delivered to their door.
           </p>
           <div className="section1_btn">
-            <button>Explore Meals</button>
-            <button>Become a Volunteer</button>
+            <button className="home_btn">Explore Meals</button>
+            <button className="home_btn">Become a Volunteer</button>
           </div>
         </div>
         <div className="section1_image">
           <img src={section1Image} alt="" />
         </div>
       </div>
-
       {/* Add Bootstrap Search Bar */}
-      <form class="form-inline d-flex justify-content-center md-form form-sm active-pink-2 mt-2 ">
+      <form
+        id="search"
+        class="form-inline d-flex justify-content-center md-form form-sm active-pink-2 mt-2  "
+      >
         <input
-          class="form-control form-control-sm mr-3 w-75"
+          id="search"
+          class="  form-control form-control-sm mr-3 w-75 "
           type="text"
           placeholder="Search"
           aria-label="Search"
@@ -53,10 +61,9 @@ const Home = () => {
             customers, enable them to live independently and age well and
             provide valuable peace-of-mind to their loved ones.
           </p>
-          <button>Learn More</button>
+          <button className="home_btn">Learn More</button>
         </div>
       </div>
-
       <div className="section3">
         <div className="nutritious">
           <div className="section3_image">
@@ -104,6 +111,22 @@ const Home = () => {
               families will be notified and our seniors will not be forgotten.
             </p>
           </div>
+        </div>
+      </div>
+      <div className="section4">
+        <div className="section4_text">
+          <h3>200+ Partner Agencies in MerryMeal</h3>
+          <p>
+            Here are some of the over two hundred agencies that deliver Meals on
+            Wheels programs across MerryMeal.
+          </p>
+        </div>
+        <div className="section4_img">
+          <img className="logo" src={logo1} alt="" />
+          <img className="logo" src={logo2} alt="" />
+          <img className="logo" src={logo3} alt="" />
+          <img className="logo" src={logo4} alt="" />
+          <img className="logo" src={logo5} alt="" />
         </div>
       </div>
     </div>
