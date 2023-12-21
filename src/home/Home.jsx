@@ -9,8 +9,10 @@ import logo2 from "../img/logo2.png";
 import logo3 from "../img/logo3.png";
 import logo4 from "../img/logo4.png";
 import logo5 from "../img/logo5.jpg";
+import { NavLink } from "react-router-dom";
 
 import "./Home.css";
+import Navbar from "../Navbar";
 
 const Home = () => {
   return (
@@ -24,14 +26,20 @@ const Home = () => {
             delivered to their door.
           </p>
           <div className="section1_btn">
-            <button className="home_btn">Explore Meals</button>
-            <button className="home_btn">Become a Volunteer</button>
+            {" "}
+            <NavLink className="home_btn" to="/register">
+              <button className="home_btn">Explore Meals</button>
+            </NavLink>
+            <NavLink className="home_btn" to="/register">
+              <button className="home_btn">Become a Volunteer</button>
+            </NavLink>
           </div>
         </div>
         <div className="section1_image">
           <img src={section1Image} alt="" />
         </div>
       </div>
+
       {/* Add Bootstrap Search Bar */}
       <form
         id="search"
@@ -61,7 +69,9 @@ const Home = () => {
             customers, enable them to live independently and age well and
             provide valuable peace-of-mind to their loved ones.
           </p>
-          <button className="home_btn">Learn More</button>
+          <NavLink className="home_btn" to="/about">
+            <button className="home_btn">Learn More</button>
+          </NavLink>
         </div>
       </div>
       <div className="section3">

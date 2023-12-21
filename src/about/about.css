@@ -1,0 +1,8 @@
+.about {
+  margin-bottom: 30px;
+}
+.about_image img,
+.login_image img {
+  border-radius: 40% 50% / 20% 40%;
+  width: 500px;
+}

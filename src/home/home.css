@@ -1,5 +1,6 @@
 .section1,
-.section2 {
+.section2,
+.about {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,23 +11,30 @@
 .home_btn {
   width: 200px;
 }
-img {
+.section1_image img,
+.section2_image img {
   width: 500px;
 }
 .section1_btn {
   display: flex;
   gap: 1.5em;
 }
-.section1 h2 {
+.section1_text h2,
+.section2_text h2 {
   font-weight: bold;
   font-family: "Inter", sans-serif;
 }
-.section2 h2 {
+.section2,
+.about h2 {
   font-weight: 600;
 }
-.section1,
-.section2 p {
+.section1_text p,
+.section2_text p,
+.about_text p {
   font-size: 0.9rem;
+  line-height: 1.5rem;
+  text-align: justify;
+  font-weight: normal;
 }
 form {
   width: 80%;
