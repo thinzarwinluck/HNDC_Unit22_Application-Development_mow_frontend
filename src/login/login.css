@@ -1,7 +1,7 @@
 .login_container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin-bottom: 30px;
 }
 .login_text h1 {
@@ -15,7 +15,4 @@
 
 .login_form {
   width: 50%;
-}
-.login_img {
-  border-radius: 40% 50% / 20% 40%;
 }
