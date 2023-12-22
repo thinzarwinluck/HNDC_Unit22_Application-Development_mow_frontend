@@ -28,7 +28,7 @@ const Navbar = () => {
                 <button class="drop_btn">Programs</button>
                 <div class="dropdown-content">
                   <NavLink to="/register">Volunteer</NavLink>
-                  <NavLink to="/register">Donate</NavLink>
+                  <NavLink to="/donate">Donate</NavLink>
                 </div>
               </div>
             </NavLink>
