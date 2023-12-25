@@ -5,8 +5,6 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import logo from "../src/img/logo.png";
 import { Button, NavbarToggle } from "react-bootstrap";
 
-import './Navbar.css';
-
 const navigation = () => {
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" bg="white" fixed="top">
@@ -25,13 +23,11 @@ const navigation = () => {
           <Nav.Link href="/" className="text-dark pt-3">Home</Nav.Link>
           <Nav.Link href="/about" className="text-dark pt-3">About Us</Nav.Link>
           <Nav.Link href="/" className="text-dark pt-3">Find Meal</Nav.Link>
-          <Nav.Link href="/" className="text-dark pt-3">Contact Us</Nav.Link>
         </Nav>
         <DropdownButton id="dropdown-basic-button" title="Program" variant="white" className="pt-2">
           {/* Update the href values for your dropdown items */}
-          <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-          <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-          <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+          <Dropdown.Item href="#/action-1">Volunteer</Dropdown.Item>
+          <Dropdown.Item href="/donate">Donate</Dropdown.Item>
         </DropdownButton>
         
       </Navbar.Collapse>

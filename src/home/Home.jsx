@@ -1,66 +1,43 @@
 import React from "react";
-import section1Image from "../img/section1.jpg";
-import section2Image from "../img/section2.jpg";
-import nutritiousImage from "../img/nuturious.jpg";
-import friendlyvisitImage from "../img/friendlyvisit.jpg";
-import safetycheckImage from "../img/safetycheck.jpg";
-import logo1 from "../img/logo1.jpg";
-import logo2 from "../img/logo2.png";
-import logo3 from "../img/logo3.png";
-import logo4 from "../img/logo4.png";
-import logo5 from "../img/logo5.jpg";
+import heroBanner from "../img/heroBanner.jpg";
 import { NavLink } from "react-router-dom";
+import { Button, Card, Image , Container} from "react-bootstrap";
+import { aboutUs ,logo } from "../data";
 
 import "./Home.css";
-import Navbar from "../Navbar";
 
 const Home = () => {
   return (
-    <div className="container-fluid">
-      <div className="section1">
-        <div className="section1_text">
-          <h2>Welcome to our Meals on Wheels</h2>
-          <p>
+    <Container fluid class="mt-5">
+      <div className="herobanner" style={{ backgroundImage: `url('${heroBanner}')` }}>
+     <div className="pt-5">
+          <Card className="w-50 ml-auto p-5 mt-6 text-white mr-auto non-color d-none d-md-block">
+          <h2 className="text-center blockquote">Welcome to our Meals on Wheels</h2>
+          <p className="text-">
             Friendly volunteers and staff helping vulnerable seniors and people
             with disabilities stay healthy at home with nutritious meals
             delivered to their door.
           </p>
-          <div className="section1_btn">
-            {" "}
-            <NavLink className="home_btn" to="/register">
-              <button className="home_btn">Explore Meals</button>
+          <div className="d-flex justify-content-center">
+            <NavLink  to="/register" className="mr-2">
+              <Button variant="warning">Explore Meals</Button>
             </NavLink>
-            <NavLink className="home_btn" to="/register">
-              <button className="home_btn">Become a Volunteer</button>
+            <NavLink to="/register">
+              <Button variant="secondary">Become a Volunteer</Button>
             </NavLink>
           </div>
-        </div>
-        <div className="section1_image">
-          <img src={section1Image} alt="" />
-        </div>
+          </Card>
+   </div>
       </div>
-
-      {/* Add Bootstrap Search Bar */}
-      <form
-        id="search"
-        className="form-inline d-flex justify-content-center md-form form-sm active-pink-2 mt-2  "
-      >
-        <input
-          id="search"
-          className="  form-control form-control-sm mr-3 w-75 "
-          type="text"
-          placeholder="Search"
-          aria-label="Search"
-        ></input>
-        <i className="fas fa-search" aria-hidden="true"></i>
-      </form>
-
-      <div className="section2">
-        <div className="section2_image">
-          <img src={section2Image} alt="" />
-        </div>
-        <div className="section2_text">
-          <h2>How We Help</h2>
+     
+   <Container fluid bg="light" className="mt-3 p-4">
+     
+      <div className="row">
+        <div className="col-6">
+          <Image src="https://assets-global.website-files.com/5bfd5ccdddc00c144ef694a4/5c0ada724c722d379ba970dd_0145C7A6EF96D182A793DAA184BF460FFE-main-article-7363.jpeg" alt="" className="ml-5" width="80%" rounded/>
+      </div>
+     <div className="col-6">
+     <h3 className="text-left pt-4">How We Help?</h3>
           <p>
             Our essential service plays an important role in early intervention
             and health prevention, allowing older Australians to live in their
@@ -69,77 +46,46 @@ const Home = () => {
             customers, enable them to live independently and age well and
             provide valuable peace-of-mind to their loved ones.
           </p>
-          <NavLink className="home_btn" to="/about">
-            <button className="home_btn">Learn More</button>
-          </NavLink>
+          <Button href="/donate" variant="warning">Learn More</Button>
         </div>
+        </div>
+        </Container>
+        <Container fluid className="bg-non mt-3">
+          <h3 className="text-center pt-4">About Us</h3>
+      <div className="row p-4">
+      {aboutUs.map((item) => (
+        <div className="col-sm-4 text-center">
+          <div className="section3_image">
+            <img className="section3Image" src={item.src} alt="" />
+          </div>
+          <div className="pt-4">
+            <h5>{item.title}</h5>
+            <p className="text-left">
+             {item.about}
+            </p>
+          </div>
+        </div>
+      ))}
       </div>
-      <div className="section3">
-        <div className="nutritious">
-          <div className="section3_image">
-            <img className="section3Image" src={nutritiousImage} alt="" />
-          </div>
-          <div className="section3_text">
-            <h5>NUTRITIOUS MEAL</h5>
-            <p>
-              Adequate nutrition is necessary for health, functionality and the
-              ability to remain independent. Healthy eating can increase mental
-              acuity, resistance to illness and disease, energy levels, immune
-              system strength, recuperation speed and the ability to manage
-              chronic health problems.{" "}
-            </p>
-          </div>
-        </div>
-
-        <div className="nutritious">
-          <div className="section3_image">
-            <img className="section3Image" src={friendlyvisitImage} alt="" />
-          </div>
-          <div className="section3_text">
-            <h5>FRIENDLY VISIT</h5>
-            <p>
-              For many, the trusted Meals on Wheels volunteer or staff member
-              who shows up every day with a meal and a smile is the only person
-              they see or speak with all day. This special delivery is the
-              reason to get up in the morning, something to look forward to, and
-              a reminder to take good care of themselves.
-            </p>
-          </div>
-        </div>
-
-        <div className="nutritious">
-          <div className="section3_image">
-            <img className="section3Image" src={safetycheckImage} alt="" />
-          </div>
-          <div className="section3_text">
-            <h5>SAFETY CHECK</h5>
-            <p>
-              Along with the inevitable impacts of aging come the increased
-              risks of medical emergencies, falls and other accidents. The
-              safety check that accompanies each meal delivery ensures that, in
-              the case of an emergency or problem, medics will be called,
-              families will be notified and our seniors will not be forgotten.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="section4">
-        <div className="section4_text">
+      </Container>
+      <Container className="p-5">
+        <div className="text-center">
           <h3>200+ Partner Agencies in MerryMeal</h3>
           <p>
             Here are some of the over two hundred agencies that deliver Meals on
             Wheels programs across MerryMeal.
           </p>
         </div>
-        <div className="section4_img">
-          <img className="logo" src={logo1} alt="" />
-          <img className="logo" src={logo2} alt="" />
-          <img className="logo" src={logo3} alt="" />
-          <img className="logo" src={logo4} alt="" />
-          <img className="logo" src={logo5} alt="" />
+       
+        <div className="row m-auto">
+        {logo.map((item) => (
+        <Image className="p-3"src={item} alt={item} width="120"  />
+      ))}
         </div>
-      </div>
-    </div>
+        </Container>
+      </Container>
+     
+      
   );
 };
 
