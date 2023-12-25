@@ -1,12 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Footer.css";
-import "./Navbar.css";
 
 const Footer = () => {
   return (
     <div>
-      <div className="pan-container">
+      <div className="container-fluid">
         <h1 className="footer_logo">Meals On Wheels</h1>
         <footer>
           <div>
@@ -23,41 +22,41 @@ const Footer = () => {
           </div>
 
           <div className="social_icon">
-            <a
+            <NavLink to="/"
               className="btn btn-primary"
               style={{ backgroundColor: "#3b5998" }}
-              href="#!"
+              
               role="button"
             >
               <i className="fab fa-facebook-f"></i>
-            </a>
+            </NavLink>
 
-            <a
+            <NavLink
               className="btn btn-primary"
               style={{ backgroundColor: "#55acee" }}
-              href="#!"
+              to="/"
               role="button"
             >
               <i className="fab fa-twitter"></i>
-            </a>
+            </NavLink>
 
-            <a
+            <NavLink
               className="btn btn-primary"
               style={{ backgroundColor: "#dd4b39" }}
-              href="#!"
+              to="/"
               role="button"
             >
               <i className="fab fa-google"></i>
-            </a>
+            </NavLink>
 
-            <a
+            <NavLink
               className="btn btn-primary"
               style={{ backgroundColor: "#ac2bac" }}
-              href="#!"
+              to="/"
               role="button"
             >
               <i className="fab fa-instagram"></i>
-            </a>
+            </NavLink>
           </div>
         </footer>
       </div>

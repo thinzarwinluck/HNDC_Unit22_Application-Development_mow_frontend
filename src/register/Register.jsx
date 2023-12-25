@@ -3,7 +3,7 @@ import "./register.css";
 
 const Register = () => {
   return (
-    <div className="pan-container">
+    <div className="container-fluid">
       <div className="register_form">
         <div className="register_text">
           <h1>Fill Form For Getting Meal!</h1>

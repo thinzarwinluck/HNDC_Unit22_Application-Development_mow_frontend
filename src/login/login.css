@@ -1,4 +1,4 @@
-.login_container {
+.login_container-fluid {
   display: flex;
   align-items: center;
   justify-content: space-evenly;

@@ -16,7 +16,7 @@ import Navbar from "../Navbar";
 
 const Home = () => {
   return (
-    <div className="pan-container">
+    <div className="container-fluid">
       <div className="section1">
         <div className="section1_text">
           <h2>Welcome to our Meals on Wheels</h2>
@@ -43,16 +43,16 @@ const Home = () => {
       {/* Add Bootstrap Search Bar */}
       <form
         id="search"
-        class="form-inline d-flex justify-content-center md-form form-sm active-pink-2 mt-2  "
+        className="form-inline d-flex justify-content-center md-form form-sm active-pink-2 mt-2  "
       >
         <input
           id="search"
-          class="  form-control form-control-sm mr-3 w-75 "
+          className="  form-control form-control-sm mr-3 w-75 "
           type="text"
           placeholder="Search"
           aria-label="Search"
         ></input>
-        <i class="fas fa-search" aria-hidden="true"></i>
+        <i className="fas fa-search" aria-hidden="true"></i>
       </form>
 
       <div className="section2">

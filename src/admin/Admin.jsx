@@ -3,7 +3,7 @@ import "./admin.css";
 
 const Admin = () => {
   return (
-    <div className="pan-container">
+    <div className="container-fluid">
       <div className="admin_dashboard">
         <h1>Admin Dashboard</h1>
         <table>

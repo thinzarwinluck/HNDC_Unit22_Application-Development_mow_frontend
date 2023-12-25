@@ -3,8 +3,8 @@ import "./login.css";
 import login from "../img/login.jpg";
 const Login = () => {
   return (
-    <div className="pan-container">
-      <div className="login_container ">
+    <div className="container-fluid">
+      <div className="row ml-5">
         <div className="login_image">
           <img src={login} alt="" />
         </div>

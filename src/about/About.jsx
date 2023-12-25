@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 const About = () => {
   return (
-    <div className="pan-container">
+    <div className="container-fluid">
       <div className="about">
         <div className="about_image">
           <img src={about} alt="" />

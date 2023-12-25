@@ -1,53 +1,51 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import "./Navbar.css";
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import logo from "../src/img/logo.png";
+import { Button, NavbarToggle } from "react-bootstrap";
 
-const Navbar = () => {
+import './Navbar.css';
+
+const navigation = () => {
   return (
-    <div className="pan-container">
-      <nav>
-        <ul>
-          <li>
-            <NavLink to="/">Home</NavLink>
-          </li>
-          <li>
-            <NavLink to="/about">About</NavLink>
-          </li>
-          <li>
-            <NavLink to="/register">Find Meals</NavLink>
-          </li>
-          <li>
-            <NavLink to="/">
-              <h1> Meals On Wheels</h1>
-            </NavLink>
-          </li>
-          {/* Dropdown */}
-          <li>
-            <NavLink to="">
-              <div class="dropdown">
-                <button class="drop_btn">Programs</button>
-                <div class="dropdown-content">
-                  <NavLink to="/register">Volunteer</NavLink>
-                  <NavLink to="/donate">Donate</NavLink>
-                </div>
-              </div>
-            </NavLink>
-          </li>
+    <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" bg="white" fixed="top">
+      <Navbar.Brand href="/">
+        <img
+          src={logo}
+          width="100"
+          className="d-inline-block align-top"
+          alt="React Bootstrap logo"
+        />
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav">
+        <Nav className="me-auto">
+          {/* Update the href values for your links */}
+          <Nav.Link href="/" className="text-dark pt-3">Home</Nav.Link>
+          <Nav.Link href="/about" className="text-dark pt-3">About Us</Nav.Link>
+          <Nav.Link href="/" className="text-dark pt-3">Find Meal</Nav.Link>
+          <Nav.Link href="/" className="text-dark pt-3">Contact Us</Nav.Link>
+        </Nav>
+        <DropdownButton id="dropdown-basic-button" title="Program" variant="white" className="pt-2">
+          {/* Update the href values for your dropdown items */}
+          <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+          <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+          <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+        </DropdownButton>
+        
+      </Navbar.Collapse>
+        <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
+          <Nav.Link href="#" className="ml-2">
+            <Button variant="warning">Sign In</Button>
+          </Nav.Link>
+          <Nav.Link href="#">
+            <Button variant="warning">Sign Up</Button>
+          </Nav.Link>
+       </Navbar.Collapse>
 
-          <li>
-            <NavLink to="/login">
-              <button className="login">Login</button>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/register">
-              <button className="register">Register</button>
-            </NavLink>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    </Navbar>
   );
 };
 
-export default Navbar;
+export default navigation;

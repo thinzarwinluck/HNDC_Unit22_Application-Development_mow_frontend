@@ -8,10 +8,10 @@ import { NavLink } from "react-router-dom";
 
 const Donate = () => {
   return (
-    <div className="pan-container">
+    <div className="container-fluid">
       <div className="donate_section1">
         <img src={donate1} alt="" />
-        <div class="center_text">
+        <div className="center_text">
           <h2>Donate Today and Make a Difference</h2>
           <p>
             Your gift will help us support the local programs that keep senior
@@ -24,11 +24,11 @@ const Donate = () => {
       </div>
 
       <div className="donate_section2">
-        <div class="image-stack">
-          <div class="image-stack__item image-stack__item--top">
+        <div className="image-stack">
+          <div className="image-stack__item image-stack__item--top">
             <img src={donate2} alt="" />
           </div>
-          <div class="image-stack__item image-stack__item--bottom">
+          <div className="image-stack__item image-stack__item--bottom">
             <img src={donate3} alt="" />
           </div>
         </div>
@@ -48,7 +48,7 @@ const Donate = () => {
 
       <div className="donate_section3">
         <img src={blur} alt="" />
-        <div class="left_text">
+        <div className="left_text">
           <h2>Donate to your local Meals on Wheels</h2>
           <p>
             Your donations help ensure that those in need in your community
