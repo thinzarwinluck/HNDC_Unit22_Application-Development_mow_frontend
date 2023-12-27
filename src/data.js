@@ -24,7 +24,7 @@ let aboutUs = [
         }
     ]
 
-    let logo =[logo1,logo2,logo3,logo4,logo5,logo1,logo2,logo3,logo4,logo5,logo1,logo1,logo2,logo3,logo4,logo5,logo1,logo2,logo3,logo4,logo5,logo1,logo1,logo2,logo3,logo4,logo5,logo1,logo2,logo3,logo4,logo5,logo1,logo1,logo2,logo3,logo4,logo5,logo1,logo2,logo3,logo4,logo5,logo1]
+    let logo =[logo1,logo2,logo3,logo4,logo5,logo1,logo2,logo3,logo4,logo5,logo1,logo1,logo2,logo3,logo4,logo5,logo1,logo2,logo3,logo4,logo5,logo1,logo1,logo2,logo3,logo4,logo5,logo1,logo2,logo3,logo4,logo5,logo1,logo1,logo2,logo3,logo4,logo5,logo1,logo2]
 
 
 export {aboutUs,logo};

@@ -32,10 +32,10 @@ const navigation = () => {
         
       </Navbar.Collapse>
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
-          <Nav.Link href="#" className="ml-2">
+          <Nav.Link href="/login" className="ml-2">
             <Button variant="warning">Sign In</Button>
           </Nav.Link>
-          <Nav.Link href="#">
+          <Nav.Link href="/register">
             <Button variant="warning">Sign Up</Button>
           </Nav.Link>
        </Navbar.Collapse>

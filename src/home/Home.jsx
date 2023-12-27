@@ -77,7 +77,7 @@ const Home = () => {
           </p>
         </div>
        
-        <div className="row m-auto">
+        <div className="row ml-5">
         {logo.map((item) => (
         <Image className="p-3"src={item} alt={item} width="120"  />
       ))}

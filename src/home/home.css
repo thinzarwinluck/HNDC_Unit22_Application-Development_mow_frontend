@@ -31,11 +31,28 @@ background-color: #80808082;
 .bg-non{
   background-color: rgba(128, 128, 128, 0.057);
 }
+.bg-yellow{
+  background-color: rgba(255, 255, 0, 0.628);
+}
 
 .mt-6{
   margin-top: 8%;
 }
 
+.full-screen{
+  height : 92vh
+}
+
+.shadow{
+  box-shadow: 2px 1px 5px 0px rgba(0,0,0,0.75);
+-webkit-box-shadow: 2px 1px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 2px 1px 5px 0px rgba(0,0,0,0.75);
+}
+
+.align-center{
+  top: -34px;
+  left: 118px;
+}
 /* Add other styles for your existing components as needed */
 
 
