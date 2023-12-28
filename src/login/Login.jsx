@@ -3,6 +3,7 @@ import { useState } from "react";
 import "../home/Home.css";
 import  baseApi  from "../api/apiFetching";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import {
   Container,
   Button,
@@ -11,11 +12,13 @@ import {
   Card,
   Row,
   Col,
+  Alert
 } from "react-bootstrap";
 import logo from "../img/logo.png";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorAlert, setErrorAlert] = useState("");
   async function login(event) {
     try {
       event.preventDefault();
@@ -30,7 +33,7 @@ const Login = () => {
       }
     })
     } catch (error) {
-      console.error("Login failed:", error.message);
+     setErrorAlert("Email or Password is incorrect!");
     }
   }
   
@@ -49,6 +52,9 @@ const Login = () => {
               {/* <h4 className="text-center">Login In</h4> */}
 
               <Form className="mt-3" onSubmit={login}>
+
+              {errorAlert && <Alert variant="danger">{errorAlert}</Alert>}
+
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Control
                     type="email"
@@ -75,13 +81,13 @@ const Login = () => {
                 </Button>
                 <Row className="mx-auto">
                   <Form.Text className="text-muted">
-                    <a href="/register" className="text-dark pr-1">
-                      Forgot Password ?
-                    </a>
+                  <Link to="/register" className="text-dark pr-1">
+  Forgot Password?
+</Link>
                     |
-                    <a href="/register" className="text-dark pl-1 fs-6">
-                      Create Account
-                    </a>
+                    <Link to="/register" className="text-dark pr-1">
+  Create Account
+</Link>
                   </Form.Text>
                 </Row>
               </Form>

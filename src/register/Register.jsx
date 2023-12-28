@@ -1,45 +1,66 @@
-import React from "react";
-import { useState } from "react";
-import "../home/Home.css";
+import React, { useState } from "react";
+import { Container, Button, Form, Card, Row, Col, Alert } from "react-bootstrap";
 import baseApi from "../api/apiFetching";
-import axios from "axios";
-import {
-  Container,
-  Button,
-  Image,
-  Form,
-  Card,
-  Row,
-  Col,
-} from "react-bootstrap";
 import logo from "../img/logo.png";
+
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setName] = useState("");
   const [age, setAge] = useState("");
   const [reTypepassword, setRetypePassword] = useState("");
-  async function login(event) {
-    try {
-      event.preventDefault();
+  const [errorAlert, setErrorAlert] = useState("");
 
-      const data = {
-        userName: userName,
-        password: reTypepassword,
-        email: email,
-        age: age,
-        location: "Hlaing",
-      };
-        await baseApi.post("/register", data).then(response => {
-          if (response.status === 201) {
-            window.location.href = "/login";
-          }
-        })
-      } catch (error) {
-        console.error("Login failed:", error.message);
+  const getUserLocation = (callback) => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const location = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        };
+        callback(location);
+      },
+      (error) => {
+        console.error("Error getting location:", error.message);
+        callback(null);
       }
-    
+    );
+  };
+
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if(password !== reTypepassword){
+      setErrorAlert("Password does not match");
+
+    }else{
+    getUserLocation((userPosition) => {
+      
+      if (userPosition) {
+        const data = {
+          userName: userName,
+          password: reTypepassword,
+          email: email,
+          age: age,
+          latitude: userPosition.latitude,
+          longitude: userPosition.longitude,
+        };
+
+        baseApi.post("/register", data)
+          .then(response => {
+            if (response.status === 201) {
+              // Consider using React Router to navigate within your app
+              window.location.href = "/login";
+            }
+          })
+          .catch(error => {
+            setErrorAlert(error.response?.data?.message || "An error occurred");
+          });
+      }
+    });
   }
+  };
 
   return (
     <Container fluid className="bg-light p-5 full-screen">
@@ -53,15 +74,16 @@ const Register = () => {
                 className="position-absolute translate-middle align-center"
                 alt="React Bootstrap logo"
               />
-              {/* <h4 className="text-center">Login In</h4> */}
 
-              <Form className="mt-3" onSubmit={login}>
+              <Form className="mt-3" onSubmit={handleSubmit}>
+                {errorAlert && <Alert variant="danger">{errorAlert}</Alert>}
                 <Form.Group className="mb-3" controlId="formBasicUserName">
                   <Form.Control
                     type="text"
                     placeholder="Enter Your Name"
                     value={userName}
                     onChange={(e) => setName(e.target.value)}
+                    required
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -70,6 +92,7 @@ const Register = () => {
                     placeholder="Enter email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    required
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicAge">
@@ -78,6 +101,7 @@ const Register = () => {
                     placeholder="Enter Your Age"
                     value={age}
                     onChange={(e) => setAge(e.target.value)}
+                    required
                   />
                 </Form.Group>
 
@@ -87,20 +111,16 @@ const Register = () => {
                     placeholder="Enter Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
                   />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Group className="mb-3" controlId="formBasicRetypePassword">
                   <Form.Control
                     type="password"
                     placeholder="Retype Password"
                     value={reTypepassword}
-                    onChange={(e) =>
-                      setRetypePassword(
-                        e.target.value === password
-                          ? e.target.value
-                          : console.log("password not match")
-                      )
-                    }
+                    onChange={(e) => setRetypePassword(e.target.value)}
+                    required
                   />
                 </Form.Group>
                 <Button
@@ -113,7 +133,7 @@ const Register = () => {
                 <Row className="mx-auto">
                   <Form.Text className="text-muted">
                     <a href="/login" className="text-dark pl-1 fs-6">
-                      Have Account Login!!
+                      Have Account? Login!!
                     </a>
                   </Form.Text>
                 </Row>
