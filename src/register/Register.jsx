@@ -46,9 +46,12 @@ const Register = () => {
   };
 
   const handleSubmit = async () => {
-    !formValidation().status
-      ? setErrorAlert(formValidation().message)
-      : getUserLocation((userPosition) => {
+    const validation = formValidation(); // Call formValidation only once
+    if (!validation.status) {
+      setErrorAlert(validation.message);
+    } else {
+    
+       getUserLocation((userPosition) => {
           if (userPosition) {
             const data = {
               userName: userName,
@@ -61,8 +64,10 @@ const Register = () => {
               experience: experience,
               gender: selectedGender,
               phone: phone,
-              work: selectedWork,
-              formType: formType
+              work_type: selectedWork === 'Part Time' ? 0 : 1,
+              user_profile: formType,
+              health : healthInformation,
+              information : detailInformation
             };
 
             baseApi
@@ -79,32 +84,33 @@ const Register = () => {
               });
           }
         });
+      }
   };
 
-  const formValidation = (type) => {
+  const formValidation = () => {
     let status = null ;
     const mainTest = email !== "" &&
-    password !== "" &&
-    reTypepassword !== "" &&
-    userName !== "" &&
-    age !== "";
-    location !== "" && selectedGender!=="" && phone!==""
-
-    switch (type) {
+      password !== "" &&
+      reTypepassword !== "" &&
+      userName !== "" &&
+      age !== "";
+      location !== "" && selectedGender!=="" && phone!=="" && password === reTypepassword;
+  
+    switch (formType) {
       case 'member':
         status = mainTest && detailInformation !=="" && healthInformation !=="";
         break;
-    
+
       default:
         status = mainTest && experience!=="" && selectedWork !==""
         break;
     }
-    const message = !status
+  const message = !status
       ? "All fields are required"
       : password === reTypepassword
       ? ""
       : "Password doesn't match";
-    return { status: status && password === reTypepassword, message: message };
+return { status: status && password === reTypepassword, message: message };
   };
 
   const handleRegistrationTypeChange = (type) => {
@@ -186,6 +192,7 @@ const Register = () => {
                       {["Male", "Female"].map((gender) => (
                         <Form.Check
                           inline
+                          key={gender}
                           label={gender}
                           name={gender}
                           type="radio"
@@ -281,15 +288,16 @@ const Register = () => {
                       <Form.Text className="text-muted">
                         Available for Work
                       </Form.Text>
-                      {["Part Time", "Full Time"].map((gender) => (
+                      {["Part Time", "Full Time"].map((work) => (
                         <Form.Check
+                        key={work}
                           inline
-                          label={gender}
-                          name={gender}
+                          label={work}
+                          name={work}
                           type="radio"
-                          id={`inline-radio-${gender}`}
-                          checked={selectedWork === gender}
-                          onChange={() => setSelectedWork(gender)}
+                          id={`inline-radio-${work}`}
+                          checked={selectedWork === work}
+                          onChange={() => setSelectedWork(work)}
                           style={{ fontSize: "14px" }}
                         />
                       ))}
