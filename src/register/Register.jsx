@@ -25,7 +25,9 @@ const Register = () => {
   const [experience, setExperience] = useState("");
   const [selectedGender, setGender] = useState("Male");
   const [phone, setPhone] = useState("");
-  const [selectedWork , setSelectedWork] = useState("Part Time")
+  const [selectedWork , setSelectedWork] = useState("Part Time");
+  const [detailInformation, setDetailInformation] = useState("");
+  const [healthInformation , setHealthInformation] = useState("")
 
   const getUserLocation = (callback) => {
     navigator.geolocation.getCurrentPosition(
@@ -91,7 +93,7 @@ const Register = () => {
 
     switch (type) {
       case 'member':
-        status = mainTest ;
+        status = mainTest && detailInformation !=="" && healthInformation !=="";
         break;
     
       default:
@@ -195,9 +197,11 @@ const Register = () => {
                         />
                       ))}
                     </Form.Group>
+                   
+                    
                   </div>
                   <div className="col-6">
-                  {formType !== "member" && (
+                  {formType !== "member" ? (
   <>
     <Form.Group className="mb-3" controlId="role">
       <Form.Select
@@ -221,6 +225,30 @@ const Register = () => {
         placeholder="Enter Your Experience"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        size="sm"
+      />
+    </Form.Group>
+  </>
+) : (
+  <>
+    <Form.Group className="mb-3" controlId="detailInformation">
+      <Form.Control
+        as="textarea"
+        rows={3}
+        placeholder="Enter Detail information about yourself"
+        value={detailInformation}
+        onChange={(e) => setDetailInformation(e.target.value)}
+        size="sm"
+      />
+    </Form.Group>
+
+    <Form.Group className="mb-3" controlId="healthInformation">
+      <Form.Control
+        as="textarea"
+        rows={3}
+        placeholder="Enter your health information"
+        value={healthInformation} 
+        onChange={(e) => setHealthInformation(e.target.value)}
         size="sm"
       />
     </Form.Group>
