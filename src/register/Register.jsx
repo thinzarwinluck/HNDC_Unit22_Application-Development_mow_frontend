@@ -223,7 +223,7 @@ const Register = () => {
         type="text"
         placeholder="Enter Your Experience"
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e) => setExperience(e.target.value)}
         size="sm"
       />
     </Form.Group>
