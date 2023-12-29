@@ -5,21 +5,33 @@ import donate2 from "../img/donate2.jpg";
 import donate3 from "../img/donate3.jpg";
 import blur from "../img/blur.jpg";
 import { NavLink } from "react-router-dom";
+import { Button, Card, Image, Container } from "react-bootstrap";
 
 const Donate = () => {
   return (
     <div className="container-fluid">
-      <div className="donate_section1">
-        <img src={donate1} alt="" />
-        <div className="center_text">
-          <h2>Donate Today and Make a Difference</h2>
-          <p>
-            Your gift will help us support the local programs that keep senior
-            safe and living independently nationwide
-          </p>
-          <NavLink to="/register">
-            <button className="donate_btn">Donate Today</button>
-          </NavLink>
+      {/* Herobanner Donate */}
+      <div
+        className="donate_banner"
+        style={{ backgroundImage: `url('${donate1}')` }}
+      >
+        <div className="pt-5">
+          <Card className="w-50 ml-auto p-5 mt-6 text-white mr-auto non-color d-none d-md-block">
+            <h2 className="text-center blockquote">
+              Donate Today and Make a Difference
+            </h2>
+            <p className="text-">
+              Your gift will help us support the local programs that keep senior
+              safe and living independently nationwide.
+            </p>
+            <div className="d-flex justify-content-center">
+              <NavLink to="/register" className="mr-2">
+                <Button variant="warning" className="donate_btn">
+                  Donate Today
+                </Button>
+              </NavLink>
+            </div>
+          </Card>
         </div>
       </div>
 
@@ -40,15 +52,18 @@ const Donate = () => {
             community.Whether it's a one-time donation, a monthly contribution,
             or a memorial or tribute donation, every doloiar makes a difference
           </p>
+
           <NavLink to="/register">
-            <button className="donate_btn">Donate Now</button>
+            <Button variant="warning" className="donate_btn">
+              Donate Now
+            </Button>
           </NavLink>
         </div>
       </div>
 
       <div className="donate_section3">
         <img src={blur} alt="" />
-        <div className="left_text">
+        <div className="left_text p-3">
           <h2>Donate to your local Meals on Wheels</h2>
           <p>
             Your donations help ensure that those in need in your community
@@ -59,10 +74,10 @@ const Donate = () => {
             <li>Enter your address to find a provider near you</li>
             <li>Contact your local provider directly to make a donation</li>
           </ol>
-          <NavLink to="/about">
-            <button className="donate3_btn">
+          <NavLink to="/about" className="mr-2">
+            <Button variant="warning" className="donate3_btn">
               Find your Local Meals On Wheels
-            </button>
+            </Button>
           </NavLink>
         </div>
       </div>
