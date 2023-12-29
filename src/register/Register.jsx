@@ -104,7 +104,7 @@ const Register = () => {
       : password === reTypepassword
       ? ""
       : "Password doesn't match";
-    return { status: status, message: message };
+    return { status: status && password === reTypepassword, message: message };
   };
 
   const handleRegistrationTypeChange = (type) => {
@@ -164,7 +164,7 @@ const Register = () => {
                       <Form.Control
                         type="text"
                         placeholder="Enter Your location"
-                        value={age}
+                        value={location}
                         onChange={(e) => setLocation(e.target.value)}
                         size="sm"
                       />
