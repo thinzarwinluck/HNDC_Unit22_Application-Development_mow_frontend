@@ -61,6 +61,7 @@ const Login = () => {
                     placeholder="Enter email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    style={{ fontSize: '14px' }}
                   />
                 </Form.Group>
 
@@ -70,6 +71,7 @@ const Login = () => {
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    style={{ fontSize: '14px' }}
                   />
                 </Form.Group>
                 <Button

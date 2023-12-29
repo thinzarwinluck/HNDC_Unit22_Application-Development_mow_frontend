@@ -24,7 +24,10 @@ let aboutUs = [
         }
     ]
 
-    let logo =[logo1,logo2,logo3,logo4,logo5,logo1,logo2,logo3,logo4,logo5,logo1,logo1,logo2,logo3,logo4,logo5,logo1,logo2,logo3,logo4,logo5,logo1,logo1,logo2,logo3,logo4,logo5,logo1,logo2,logo3,logo4,logo5,logo1,logo1,logo2,logo3,logo4,logo5,logo1,logo2]
+    const logo = Array.from({ length: 36 }, (_, index) => {
+      const logos = [logo1, logo2, logo3, logo4, logo5];
+      return logos[index % logos.length];
+    });
 
 
 export {aboutUs,logo};
