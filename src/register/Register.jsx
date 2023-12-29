@@ -69,7 +69,6 @@ const Register = () => {
               .post("/register", data)
               .then((response) => {
                 if (response.status === 201) {
-                  // Consider using React Router to navigate within your app
                   window.location.href = "/login";
                 }
               })
