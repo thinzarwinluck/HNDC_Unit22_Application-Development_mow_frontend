@@ -26,17 +26,19 @@
   top: 20%;
   left: 20%;
   transform: translate(-20%, -20%);
+  /* text-align: center; */
 }
 .left_text p,
 .left_text ol li {
   color: white;
   font-weight: 600;
   text-shadow: 1px 1px black;
-  /* text-align: center; */
+  font-size: 1rem;
 }
 .left_text h2 {
   font-size: 1.9rem;
   color: white;
+  /* text-align: center; */
 }
 .center_text h2,
 .left_text h2 {

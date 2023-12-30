@@ -1,11 +1,12 @@
 import "./about.css";
 import about from "../img/aboutus.jpg";
 import { NavLink } from "react-router-dom";
+import { Button, Card, Image, Container } from "react-bootstrap";
 
 const About = () => {
   return (
     <div className="container-fluid">
-      <div className="about">
+      <div className="about mt-6">
         <div className="about_image">
           <img src={about} alt="" />
         </div>
@@ -24,7 +25,9 @@ const About = () => {
             around the importance of good nutrition and social connection.
           </p>
           <NavLink className="home_btn" to="/register">
-            <button className="home_btn">Contact Us</button>
+            <Button className="home_btn" variant="warning">
+              Contact Us
+            </Button>
           </NavLink>
         </div>
       </div>
