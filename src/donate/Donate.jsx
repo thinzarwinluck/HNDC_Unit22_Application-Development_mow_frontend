@@ -63,7 +63,7 @@ const Donate = () => {
 
       <div className="donate_section3">
         <img src={blur} alt="" />
-        <div className="left_text p-3">
+        <div className="left_text p-2">
           <h2>Donate to your local Meals on Wheels</h2>
           <p>
             Your donations help ensure that those in need in your community
