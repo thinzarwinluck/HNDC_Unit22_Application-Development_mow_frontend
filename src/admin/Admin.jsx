@@ -1,57 +1,67 @@
-import React from "react";
-import "./admin.css";
-
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import service from '../api/apiFetching';
+import { Button , Table , Container } from 'react-bootstrap';
 const Admin = () => {
+  const [usersData, setUserData] = useState([]);
+
+  useEffect(() => {
+    const getAllUsersData = async () => {
+      try {
+        const response = await service.get('/user/getAll');
+        console.log(response.data);
+        setUserData(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getAllUsersData();
+  }, []);
+
   return (
-    <div className="container-fluid">
-      <div className="admin_dashboard">
-        <h1>Admin Dashboard</h1>
-        <table>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th>Address</th>
-          </tr>
-          <tr>
-            <td>Peter</td>
-            <td>peter@gmail.com</td>
-            <td>1001</td>
-            <td>USA</td>
-          </tr>
-          <tr>
-            <td>Lois</td>
-            <td>lois@gmail.com</td>
-            <td>1502</td>
-            <td>UK</td>
-          </tr>
-          <tr>
-            <td>Joe</td>
-            <td>joe@gmail.com</td>
-            <td>3002</td>
-            <td>Canada</td>
-          </tr>
-          <tr>
-            <td>Cleveland</td>
-            <td>cleveland@gmail.com</td>
-            <td>2501</td>
-            <td>Iceland</td>
-          </tr>
-          <tr>
-            <td>Merry</td>
-            <td>merry@gmail.com</td>
-            <td>2581</td>
-            <td>UK</td>
-          </tr>
-          <tr>
-            <td>Brown</td>
-            <td>brown@gmail.com</td>
-            <td>1181</td>
-            <td>UAE</td>
-          </tr>
-        </table>
-      </div>
-    </div>
+    <Container fluid className="mt-5">
+     
+        <h1 className='pt-3'>Admin Dashboard</h1>
+        <Table responsive>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Location</th>
+              <th>Health Information</th>
+              <th>User Information</th>
+              <th>User Status</th>
+              <th>User Type</th>
+              <th>Work Available</th>
+            </tr>
+          </thead>
+          <tbody>
+            {usersData.length > 0 ? (
+              usersData.map(user => (
+                <tr key={user.usersId}>
+                  <td>{user.userName}</td>
+                  <td>{user.email}</td>
+                  <td>{user.phone}</td>
+                  <td>Yangon Hlaing</td>
+                  <td>{user.information}</td>
+                  <td>{user.health}</td>
+                  <td>{user.emailVerified?"Verified":"Not Verified"}</td>
+                  <td>{user.user_profile}</td>
+                  <td>{user.user_profile === 'member' || user.user_profile=== 'care-giver'? user.work_type ? 'Part Time' : 'Full Time':" - "}</td>
+                <td><Button variant="primary" onClick={() => console.log("Accept")}>
+                  Accept
+                </Button></td>
+                </tr>
+              ))
+            ) : (
+              <tr></tr>
+            )}
+          </tbody>
+        </Table>
+    
+    </Container>
   );
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import "../home/Home.css";
-import  baseApi  from "../api/apiFetching";
+import service   from "../api/apiFetching";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import {
@@ -25,14 +25,15 @@ const Login = () => {
       const data = {
         email: email,
         password: password,
-      }; 
-      await baseApi.post("/login", data).then(response => {
-      if (response.status ===200) {
-        sessionStorage.setItem('token', response.data.accessToken);
-        window.location.href = "/";
-      }
-    })
-    } catch (error) {
+      };
+        await service.post("/login", data).then(async response => {
+          if (response.status ===200) {
+localStorage.setItem('token', response.data.accessToken);
+
+            window.location.href = "/";
+          }
+        })
+} catch (error) {
      setErrorAlert("Email or Password is incorrect!");
     }
   }

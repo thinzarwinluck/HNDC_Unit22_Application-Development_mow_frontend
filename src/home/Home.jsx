@@ -8,7 +8,7 @@ import "./Home.css";
 
 const Home = () => {
   return (
-    <Container fluid class="mt-5">
+    <Container fluid className="mt-5">
       <div
         className="herobanner"
         style={{ backgroundImage: `url('${heroBanner}')` }}
@@ -66,7 +66,7 @@ const Home = () => {
         <h3 className="text-center pt-4">About Us</h3>
         <div className="row p-4">
           {aboutUs.map((item) => (
-            <div className="col-sm-4 text-center">
+            <div className="col-sm-4 text-center" key={item.src}>
               <div className="section3_image">
                 <img className="section3Image" src={item.src} alt="" />
               </div>

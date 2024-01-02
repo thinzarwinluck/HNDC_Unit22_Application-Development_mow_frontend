@@ -8,7 +8,7 @@ import {
   Col,
   Alert,
 } from "react-bootstrap";
-import baseApi from "../api/apiFetching";
+import service from "../api/apiFetching";
 import logo from "../img/logo.png";
 import { capitalize } from "lodash";
 import _ from "lodash";
@@ -70,7 +70,7 @@ const Register = () => {
               information : detailInformation
             };
 
-            baseApi
+            service
               .post("/register", data)
               .then((response) => {
                 if (response.status === 201) {

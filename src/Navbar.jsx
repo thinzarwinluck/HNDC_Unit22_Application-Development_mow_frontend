@@ -6,7 +6,12 @@ import logo from "../src/img/logo.png";
 import { Button, NavbarToggle } from "react-bootstrap";
 
 const navigation = () => {
+  const logout=()=>{
+    localStorage.setItem("token","");
+    window.location.href='/'
+  }
   return (
+    
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" bg="white" fixed="top">
       <Navbar.Brand href="/">
         <img
@@ -26,11 +31,13 @@ const navigation = () => {
         </Nav>
         <DropdownButton id="dropdown-basic-button" title="Program" variant="white" className="pt-2">
           {/* Update the href values for your dropdown items */}
-          <Dropdown.Item href="#/action-1">Volunteer</Dropdown.Item>
+          <Dropdown.Item href="/member">Member</Dropdown.Item>
           <Dropdown.Item href="/donate">Donate</Dropdown.Item>
         </DropdownButton>
         
       </Navbar.Collapse>
+      {localStorage.getItem("token") === '' ?(
+        <>
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
           <Nav.Link href="/login" className="ml-2">
             <Button variant="warning">Sign In</Button>
@@ -40,7 +47,13 @@ const navigation = () => {
           </Nav.Link>
        </Navbar.Collapse>
 
-    </Navbar>
+   </>
+      ) : (
+        <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
+        <Button variant="warning" onClick={logout}>Log out</Button>
+      </Navbar.Collapse>
+      )}
+      </Navbar>
   );
 };
 
