@@ -5,11 +5,66 @@ import donate2 from "../img/donate2.jpg";
 import donate3 from "../img/donate3.jpg";
 import blur from "../img/blur.jpg";
 import { NavLink } from "react-router-dom";
-import { Button, Card, Image, Container } from "react-bootstrap";
+import { Button, Card, Image, Container , Form , Modal } from "react-bootstrap";
+import { useState } from 'react';
 
 const Donate = () => {
+  const [show, setShow] = useState(false);
+  const [formType,setFormType]=useState('Card Payment')
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
+    
     <div className="container-fluid">
+            <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Donate Us </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Enter Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter Name"
+                autoFocus
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="name@example.com"
+                autoFocus
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="role">
+            <Form.Label>Choose Payment</Form.Label>
+      <Form.Select
+        value={formType}
+        onChange={(e) => setFormType(e.target.value)}
+        autoFocus
+      >
+        {["Card Payment ", "Mobile Payment"].map((type) => (
+          <option key={type} value={type}>
+            {type}
+          </option>
+        ))}
+      </Form.Select>
+    </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Next
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       {/* Herobanner Donate */}
       <div
         className="donate_banner"
@@ -25,11 +80,9 @@ const Donate = () => {
               safe and living independently nationwide.
             </p>
             <div className="d-flex justify-content-center">
-              <NavLink to="/register" className="mr-2">
-                <Button variant="warning" className="donate_btn">
+                <Button variant="warning" className="donate_btn" onClick={handleShow}>
                   Donate Today
                 </Button>
-              </NavLink>
             </div>
           </Card>
         </div>
@@ -53,11 +106,9 @@ const Donate = () => {
             or a memorial or tribute donation, every doloiar makes a difference
           </p>
 
-          <NavLink to="/register">
-            <Button variant="warning" className="donate_btn">
+            <Button variant="warning" className="donate_btn" onClick={handleShow}>
               Donate Now
             </Button>
-          </NavLink>
         </div>
       </div>
 
