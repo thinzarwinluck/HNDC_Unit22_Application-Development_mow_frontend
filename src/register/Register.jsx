@@ -141,7 +141,8 @@ return { status: status && password === reTypepassword, message: message };
                     <Form.Group className="mb-3" controlId="formBasicUserName">
                       <Form.Control
                         type="text"
-                        placeholder="Enter Your Name"
+                        
+                        placeholder={`Enter your ${formType === "Partner" ? "Company Name" : "Name"}`}
                         value={userName}
                         onChange={(e) => setName(e.target.value)}
                         className="form-font-size"
@@ -151,12 +152,15 @@ return { status: status && password === reTypepassword, message: message };
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                       <Form.Control
                         type="email"
-                        placeholder="Enter email"
+                        placeholder={`Enter your ${formType === "Partner" ? "Company Email" : "Email"}`}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         size="sm"
                       />
                     </Form.Group>
+                    {formType !== "Partner" &&(
+                      
+                   <>
                     <Form.Group className="mb-3" controlId="formBasicAge">
                       <Form.Control
                         type="text"
@@ -166,10 +170,12 @@ return { status: status && password === reTypepassword, message: message };
                         size="sm"
                       />
                     </Form.Group>
+                    </>
+                     )}
                     <Form.Group className="mb-3" controlId="formBasicLocation">
                       <Form.Control
                         type="text"
-                        placeholder="Enter Your location"
+                        placeholder={`Enter your ${formType === "Partner" ? "Company Location" : "Location"}`}
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
                         size="sm"
@@ -179,12 +185,13 @@ return { status: status && password === reTypepassword, message: message };
                     <Form.Group className="mb-2" controlId="phoneNumber">
                       <Form.Control
                         type="text"
-                        placeholder="Enter Your Phone Number"
+                        placeholder={`Enter your ${formType === "Partner" ? "Company Phone" : "Phone"}`}
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         size="sm"
                       />
                     </Form.Group>
+                    {formType !== "Partner" ?(
                     <Form.Group className="mb-3" controlId="gender">
                       <Form.Text className="text-muted">
                         Choose Gender
@@ -203,7 +210,17 @@ return { status: status && password === reTypepassword, message: message };
                         />
                       ))}
                     </Form.Group>
-                   
+                    ) :  (
+                    <Form.Group className="mb-3" controlId="gender">
+                      <Form.Check // prettier-ignore
+                    type="switch"
+                    id="custom-switch"
+                    label="Can Provide Cold Meals?"
+                    style={{ fontSize: "14px" }}
+                  />
+                  </Form.Group>
+                    )
+            }
                     
                   </div>
                   <div className="col-6">
@@ -217,23 +234,24 @@ return { status: status && password === reTypepassword, message: message };
         className="w-100"
       >
         <option>Choose Your Role</option>
-        {["Care-Giver", "Volunteer"].map((type) => (
+        {["Care-Giver", "Volunteer" , "Partner"].map((type) => (
           <option key={type} value={type}>
             {type}
           </option>
         ))}
       </Form.Select>
     </Form.Group>
-
+    {formType !== "Partner" &&(
     <Form.Group className="mb-3" controlId="experience">
       <Form.Control
         type="text"
         placeholder="Enter Your Experience"
-        value={password}
+        value={experience}
         onChange={(e) => setExperience(e.target.value)}
         size="sm"
       />
     </Form.Group>
+    )}
   </>
 ) : (
   <>
@@ -283,7 +301,7 @@ return { status: status && password === reTypepassword, message: message };
                         size="sm"
                       />
                     </Form.Group>
-                    {formType !== "member" && (
+                    {formType !== "member" && formType !== "Partner" && (
                     <Form.Group controlId="work">
                       <Form.Text className="text-muted">
                         Available for Work
