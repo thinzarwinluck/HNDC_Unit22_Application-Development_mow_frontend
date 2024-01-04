@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import "../home/Home.css";
-import service   from "../api/apiFetching";
+import service from "../api/apiFetching";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import {
@@ -12,7 +12,7 @@ import {
   Card,
   Row,
   Col,
-  Alert
+  Alert,
 } from "react-bootstrap";
 import logo from "../img/logo.png";
 const Login = () => {
@@ -26,18 +26,29 @@ const Login = () => {
         email: email,
         password: password,
       };
-        await service.post("/login", data).then(async response => {
-          if (response.status ===200) {
-localStorage.setItem('token', response.data.accessToken);
-
-            window.location.href = "/";
-          }
-        })
-} catch (error) {
-     setErrorAlert("Email or Password is incorrect!");
+      await service.post("/login", data).then(async (response) => {
+        if (response.status === 200) {
+          localStorage.setItem("token", response.data.accessToken);
+          await service.get("/user/me").then((response) => {
+            if (response.status === 200) {
+              localStorage.setItem("user_role", response.data.user_profile);
+              switch (response.data.user_profile) {
+                case "admin":
+                  window.location.href = "/admin";
+                  break;
+                default:
+                  window.location.href = "/";
+                  break;
+              }
+            }
+          });
+        }
+      });
+    } catch (error) {
+      setErrorAlert("Email or Password is incorrect!");
     }
   }
-  
+
   return (
     <Container fluid className="bg-light p-5 full-screen">
       <div className="p-5">
@@ -53,8 +64,7 @@ localStorage.setItem('token', response.data.accessToken);
               {/* <h4 className="text-center">Login In</h4> */}
 
               <Form className="mt-3" onSubmit={login}>
-
-              {errorAlert && <Alert variant="danger">{errorAlert}</Alert>}
+                {errorAlert && <Alert variant="danger">{errorAlert}</Alert>}
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Control
@@ -62,7 +72,7 @@ localStorage.setItem('token', response.data.accessToken);
                     placeholder="Enter email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    style={{ fontSize: '14px' }}
+                    style={{ fontSize: "14px" }}
                   />
                 </Form.Group>
 
@@ -72,7 +82,7 @@ localStorage.setItem('token', response.data.accessToken);
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    style={{ fontSize: '14px' }}
+                    style={{ fontSize: "14px" }}
                   />
                 </Form.Group>
                 <Button
@@ -84,13 +94,13 @@ localStorage.setItem('token', response.data.accessToken);
                 </Button>
                 <Row className="mx-auto">
                   <Form.Text className="text-muted">
-                  <Link to="/register" className="text-dark pr-1">
-  Forgot Password?
-</Link>
+                    <Link to="/register" className="text-dark pr-1">
+                      Forgot Password?
+                    </Link>
                     |
                     <Link to="/register" className="text-dark pr-1">
-  Create Account
-</Link>
+                      Create Account
+                    </Link>
                   </Form.Text>
                 </Row>
               </Form>
