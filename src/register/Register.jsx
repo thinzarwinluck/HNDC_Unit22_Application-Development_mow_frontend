@@ -25,9 +25,9 @@ const Register = () => {
   const [experience, setExperience] = useState("");
   const [selectedGender, setGender] = useState("Male");
   const [phone, setPhone] = useState("");
-  const [selectedWork , setSelectedWork] = useState("Part Time");
+  const [selectedWork, setSelectedWork] = useState("Part Time");
   const [detailInformation, setDetailInformation] = useState("");
-  const [healthInformation , setHealthInformation] = useState("")
+  const [healthInformation, setHealthInformation] = useState("");
 
   const getUserLocation = (callback) => {
     navigator.geolocation.getCurrentPosition(
@@ -50,72 +50,76 @@ const Register = () => {
     if (!validation.status) {
       setErrorAlert(validation.message);
     } else {
-    
-       getUserLocation((userPosition) => {
-          if (userPosition) {
-            const data = {
-              userName: userName,
-              password: reTypepassword,
-              email: email,
-              age: age,
-              latitude: userPosition.latitude,
-              longitude: userPosition.longitude,
-              location: location,
-              experience: experience,
-              gender: selectedGender,
-              phone: phone,
-              work_type: selectedWork === 'Part Time' ? 0 : 1,
-              user_profile: formType,
-              health : healthInformation,
-              information : detailInformation
-            };
-
-            service
-              .post("/register", data)
-              .then((response) => {
-                if (response.status === 201) {
-                  window.location.href = "/login";
-                }
-              })
-              .catch((error) => {
-                setErrorAlert(
-                  error.response?.data?.message || "An error occurred"
-                );
-              });
+      getUserLocation(async (userPosition) => {
+        if (userPosition) {
+          const data = {
+            userName: userName,
+            password: reTypepassword,
+            email: email,
+            age: age,
+            latitude: userPosition.latitude,
+            longitude: userPosition.longitude,
+            location: location,
+            experience: experience,
+            gender: selectedGender,
+            phone: phone,
+            duty: selectedWork === "Part Time" ? 0 : 1,
+            role: formType,
+            health: healthInformation,
+            information: detailInformation,
+          };
+          console.log(data)
+          try {
+            await service.post("/register", data);
+            window.location.href = "/login";
+          } catch (error) {
+            setErrorAlert(error.response?.data?.message || "An error occurred");
           }
-        });
-      }
+        } else {
+          console.error("Error getting location");
+        }
+      });
+    }
   };
 
   const formValidation = () => {
-    let status = null ;
-    const mainTest = email !== "" &&
+    let status = null;
+    const mainTest =
+      email !== "" &&
       password !== "" &&
       reTypepassword !== "" &&
       userName !== "" &&
-      age !== "";
-      location !== "" && selectedGender!=="" && phone!=="" && password === reTypepassword;
-  
+      location !== "" &&
+      phone !== "" &&
+      password === reTypepassword;
+
     switch (formType) {
-      case 'member':
-        status = mainTest && detailInformation !=="" && healthInformation !=="";
+      case "member":
+        status =
+          mainTest &&
+          detailInformation !== "" &&
+          healthInformation !== "" &&
+          age !== "";
+        break;
+
+      case "volunteer":
+        status = mainTest && experience !== "" && age !== "";
         break;
 
       default:
-        status = mainTest && experience!=="" && selectedWork !==""
+        status = mainTest;
         break;
     }
-  const message = !status
+    const message = !status
       ? "All fields are required"
       : password === reTypepassword
       ? ""
       : "Password doesn't match";
-return { status: status && password === reTypepassword, message: message };
+    return { status: status && password === reTypepassword, message: message };
   };
 
   const handleRegistrationTypeChange = (type) => {
     setFormType(type);
-    
   };
 
   return (
@@ -141,8 +145,9 @@ return { status: status && password === reTypepassword, message: message };
                     <Form.Group className="mb-3" controlId="formBasicUserName">
                       <Form.Control
                         type="text"
-                        
-                        placeholder={`Enter your ${formType === "Partner" ? "Company Name" : "Name"}`}
+                        placeholder={`Enter your ${
+                          formType === "Partner" ? "Company Name" : "Name"
+                        }`}
                         value={userName}
                         onChange={(e) => setName(e.target.value)}
                         className="form-font-size"
@@ -152,30 +157,35 @@ return { status: status && password === reTypepassword, message: message };
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                       <Form.Control
                         type="email"
-                        placeholder={`Enter your ${formType === "Partner" ? "Company Email" : "Email"}`}
+                        placeholder={`Enter your ${
+                          formType === "Partner" ? "Company Email" : "Email"
+                        }`}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         size="sm"
                       />
                     </Form.Group>
-                    {formType !== "Partner" &&(
-                      
-                   <>
-                    <Form.Group className="mb-3" controlId="formBasicAge">
-                      <Form.Control
-                        type="text"
-                        placeholder="Enter Your Age"
-                        value={age}
-                        onChange={(e) => setAge(e.target.value)}
-                        size="sm"
-                      />
-                    </Form.Group>
-                    </>
-                     )}
+                    {formType !== "Partner" && (
+                      <>
+                        <Form.Group className="mb-3" controlId="formBasicAge">
+                          <Form.Control
+                            type="text"
+                            placeholder="Enter Your Age"
+                            value={age}
+                            onChange={(e) => setAge(e.target.value)}
+                            size="sm"
+                          />
+                        </Form.Group>
+                      </>
+                    )}
                     <Form.Group className="mb-3" controlId="formBasicLocation">
                       <Form.Control
                         type="text"
-                        placeholder={`Enter your ${formType === "Partner" ? "Company Location" : "Location"}`}
+                        placeholder={`Enter your ${
+                          formType === "Partner"
+                            ? "Company Location"
+                            : "Location"
+                        }`}
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
                         size="sm"
@@ -185,99 +195,111 @@ return { status: status && password === reTypepassword, message: message };
                     <Form.Group className="mb-2" controlId="phoneNumber">
                       <Form.Control
                         type="text"
-                        placeholder={`Enter your ${formType === "Partner" ? "Company Phone" : "Phone"}`}
+                        placeholder={`Enter your ${
+                          formType === "Partner" ? "Company Phone" : "Phone"
+                        }`}
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         size="sm"
                       />
                     </Form.Group>
-                    {formType !== "Partner" ?(
-                    <Form.Group className="mb-3" controlId="gender">
-                      <Form.Text className="text-muted">
-                        Choose Gender
-                      </Form.Text>
-                      {["Male", "Female"].map((gender) => (
-                        <Form.Check
-                          inline
-                          key={gender}
-                          label={gender}
-                          name={gender}
-                          type="radio"
-                          id={`inline-radio-${gender}`}
-                          checked={selectedGender === gender}
-                          onChange={() => setGender(gender)}
+                    {formType !== "Partner" ? (
+                      <Form.Group className="mb-3" controlId="gender">
+                        <Form.Text className="text-muted">
+                          Choose Gender
+                        </Form.Text>
+                        {["Male", "Female"].map((gender) => (
+                          <Form.Check
+                            inline
+                            key={gender}
+                            label={gender}
+                            name={gender}
+                            type="radio"
+                            id={`inline-radio-${gender}`}
+                            checked={selectedGender === gender}
+                            onChange={() => setGender(gender)}
+                            style={{ fontSize: "14px" }}
+                          />
+                        ))}
+                      </Form.Group>
+                    ) : (
+                      <Form.Group className="mb-3" controlId="gender">
+                        <Form.Check // prettier-ignore
+                          type="switch"
+                          id="custom-switch"
+                          label="Can Provide Cold Meals?"
                           style={{ fontSize: "14px" }}
                         />
-                      ))}
-                    </Form.Group>
-                    ) :  (
-                    <Form.Group className="mb-3" controlId="gender">
-                      <Form.Check // prettier-ignore
-                    type="switch"
-                    id="custom-switch"
-                    label="Can Provide Cold Meals?"
-                    style={{ fontSize: "14px" }}
-                  />
-                  </Form.Group>
-                    )
-            }
-                    
+                      </Form.Group>
+                    )}
                   </div>
                   <div className="col-6">
-                  {formType !== "member" ? (
-  <>
-    <Form.Group className="mb-3" controlId="role">
-      <Form.Select
-        style={{ fontSize: "14px" }}
-        value={formType}
-        onChange={(e) => setFormType(e.target.value)}
-        className="w-100"
-      >
-        <option>Choose Your Role</option>
-        {["Care-Giver", "Volunteer" , "Partner"].map((type) => (
-          <option key={type} value={type}>
-            {type}
-          </option>
-        ))}
-      </Form.Select>
-    </Form.Group>
-    {formType !== "Partner" &&(
-    <Form.Group className="mb-3" controlId="experience">
-      <Form.Control
-        type="text"
-        placeholder="Enter Your Experience"
-        value={experience}
-        onChange={(e) => setExperience(e.target.value)}
-        size="sm"
-      />
-    </Form.Group>
-    )}
-  </>
-) : (
-  <>
-    <Form.Group className="mb-3" controlId="detailInformation">
-      <Form.Control
-        as="textarea"
-        rows={3}
-        placeholder="Enter Detail information about yourself"
-        value={detailInformation}
-        onChange={(e) => setDetailInformation(e.target.value)}
-        size="sm"
-      />
-    </Form.Group>
+                    {formType !== "member" ? (
+                      <>
+                        <Form.Group className="mb-3" controlId="role">
+                          <Form.Select
+                            style={{ fontSize: "14px" }}
+                            value={formType}
+                            onChange={(e) => setFormType(e.target.value)}
+                            className="w-100"
+                          >
+                            <option>Choose Your Role</option>
+                            {["Care-Giver", "Volunteer", "Partner"].map(
+                              (type) => (
+                                <option key={type} value={type}>
+                                  {type}
+                                </option>
+                              )
+                            )}
+                          </Form.Select>
+                        </Form.Group>
+                        {formType !== "Partner" && (
+                          <Form.Group className="mb-3" controlId="experience">
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter Your Experience"
+                              value={experience}
+                              onChange={(e) => setExperience(e.target.value)}
+                              size="sm"
+                            />
+                          </Form.Group>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        <Form.Group
+                          className="mb-3"
+                          controlId="detailInformation"
+                        >
+                          <Form.Control
+                            as="textarea"
+                            rows={3}
+                            placeholder="Enter Detail information about yourself"
+                            value={detailInformation}
+                            onChange={(e) =>
+                              setDetailInformation(e.target.value)
+                            }
+                            size="sm"
+                          />
+                        </Form.Group>
 
-    <Form.Group className="mb-3" controlId="healthInformation">
-      <Form.Control
-        as="textarea"
-        rows={3}
-        placeholder="Enter your health information"
-        value={healthInformation} 
-        onChange={(e) => setHealthInformation(e.target.value)}
-        size="sm"
-      />
-    </Form.Group>
-  </>
-)}
+                        <Form.Group
+                          className="mb-3"
+                          controlId="healthInformation"
+                        >
+                          <Form.Control
+                            as="textarea"
+                            rows={3}
+                            placeholder="Enter your health information"
+                            value={healthInformation}
+                            onChange={(e) =>
+                              setHealthInformation(e.target.value)
+                            }
+                            size="sm"
+                          />
+                        </Form.Group>
+                      </>
+                    )}
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                       <Form.Control
@@ -302,24 +324,24 @@ return { status: status && password === reTypepassword, message: message };
                       />
                     </Form.Group>
                     {formType !== "member" && formType !== "Partner" && (
-                    <Form.Group controlId="work">
-                      <Form.Text className="text-muted">
-                        Available for Work
-                      </Form.Text>
-                      {["Part Time", "Full Time"].map((work) => (
-                        <Form.Check
-                        key={work}
-                          inline
-                          label={work}
-                          name={work}
-                          type="radio"
-                          id={`inline-radio-${work}`}
-                          checked={selectedWork === work}
-                          onChange={() => setSelectedWork(work)}
-                          style={{ fontSize: "14px" }}
-                        />
-                      ))}
-                    </Form.Group>
+                      <Form.Group controlId="work">
+                        <Form.Text className="text-muted">
+                          Available for Work
+                        </Form.Text>
+                        {["Part Time", "Full Time"].map((work) => (
+                          <Form.Check
+                            key={work}
+                            inline
+                            label={work}
+                            name={work}
+                            type="radio"
+                            id={`inline-radio-${work}`}
+                            checked={selectedWork === work}
+                            onChange={() => setSelectedWork(work)}
+                            style={{ fontSize: "14px" }}
+                          />
+                        ))}
+                      </Form.Group>
                     )}
                   </div>
                 </Row>

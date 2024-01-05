@@ -29,7 +29,7 @@ const navigation = () => {
           <Nav.Link href="/donate" className="text-dark pt-3">Donate</Nav.Link>
           {localStorage.getItem("token") !== ''&&(
             <>
-          <Nav.Link href="/" className="text-dark pt-3">Find Meal</Nav.Link>
+          <Nav.Link href="/meal/list" className="text-dark pt-3">Find Meal</Nav.Link>
           {user_type === 'admin' && (
             
        

@@ -31,10 +31,18 @@ const Login = () => {
           localStorage.setItem("token", response.data.accessToken);
           await service.get("/user/me").then((response) => {
             if (response.status === 200) {
-              localStorage.setItem("user_role", response.data.user_profile);
-              switch (response.data.user_profile) {
-                case "admin":
+              console.log(response)
+              localStorage.setItem("user_role", response.data.role);
+              localStorage.setItem("user_id",response.data.usersId);
+              localStorage.setItem('latitude',response.data.latitude);
+              localStorage.setItem('longitude',response.data.longitude);
+              switch (response.data.role) {
+                case "Admin":
                   window.location.href = "/admin";
+                  break;
+                  case "Partner":
+                  case "member":
+                   window.location.href = "/meal/list";
                   break;
                 default:
                   window.location.href = "/";
