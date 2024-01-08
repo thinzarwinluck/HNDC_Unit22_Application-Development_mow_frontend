@@ -44,6 +44,8 @@ const Login = () => {
                   case "member":
                    window.location.href = "/meal/list";
                   break;
+                  case "volunteer":
+                    window.location.href = "/order"
                 default:
                   window.location.href = "/";
                   break;

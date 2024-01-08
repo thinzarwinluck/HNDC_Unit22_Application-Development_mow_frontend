@@ -46,6 +46,7 @@ const Register = () => {
   };
 
   const handleSubmit = async () => {
+    
     const validation = formValidation(); // Call formValidation only once
     if (!validation.status) {
       setErrorAlert(validation.message);
@@ -92,6 +93,7 @@ const Register = () => {
       location !== "" &&
       phone !== "" &&
       password === reTypepassword;
+      console.log(mainTest)
 
     switch (formType) {
       case "member":
@@ -100,9 +102,11 @@ const Register = () => {
           detailInformation !== "" &&
           healthInformation !== "" &&
           age !== "";
+          console.log(status)
         break;
 
-      case "volunteer":
+      case "Volunteer":
+        case "Care-Giver":
         status = mainTest && experience !== "" && age !== "";
         break;
 

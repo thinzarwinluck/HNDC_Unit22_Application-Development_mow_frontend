@@ -30,6 +30,7 @@ const navigation = () => {
           {localStorage.getItem("token") !== ''&&(
             <>
           <Nav.Link href="/meal/list" className="text-dark pt-3">Find Meal</Nav.Link>
+          <Nav.Link href="/order" className="text-dark pt-3">Order</Nav.Link>
           {user_type === 'admin' && (
             
        
@@ -38,9 +39,6 @@ const navigation = () => {
           </>
           )}
         </Nav>
-
-       
-        
       </Navbar.Collapse>
       {localStorage.getItem("token") !== '' ?(
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">

@@ -23,24 +23,26 @@ const Meal = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleChangeMeal = ()=>setCanProvideColdMeals(!canProvideColdMeals);
-  const userLatitude = localStorage.getItem('latitude');
-  const userLongitude=localStorage.getItem('longitude');
+  const handleChangeMeal = () => setCanProvideColdMeals(!canProvideColdMeals);
+  const userLatitude = localStorage.getItem("latitude");
+  const userLongitude = localStorage.getItem("longitude");
   const addMeal = async () => {
-  
     try {
       const newMeal = {
         name: name,
         description: description,
         coldmeal_available: canProvideColdMeals,
-        tag : formType
+        tag: formType,
       };
-      const response = await service.post(`/save/meal/${auth_user_id}`, newMeal);
+      const response = await service.post(
+        `/save/meal/${auth_user_id}`,
+        newMeal
+      );
       if (response.status === 200) {
         meals.push(response.data);
       }
     } catch (error) {
-     console.log(error)
+      console.log(error);
     }
   };
 
@@ -52,28 +54,48 @@ const Meal = () => {
     const dLon = toRadians(lon2 - lon1);
 
     const a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
-        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(toRadians(lat1)) *
+        Math.cos(toRadians(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
 
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
     const distance = R * c; // Distance in kilometers
     return distance;
-}
+  }
 
-function toRadians(degrees) {
+  function toRadians(degrees) {
     return degrees * (Math.PI / 180);
-}
+  }
 
   const orderMeal = async (meal) => {
-    console.log(meal)
-    const distance = calculateDistance(userLatitude, userLongitude, meal.user.latitude, meal.user.longitude);
-if(distance >10){
-  alert(meal.coldmeal_available?"You Can get only cold meal for this menu":"I'm Sorry! You can't get any meal for this menu")
-
-}
-  }
+    console.log(meal);
+    const distance = calculateDistance(
+      userLatitude,
+      userLongitude,
+      meal.user.latitude,
+      meal.user.longitude
+    );
+    if (distance > 10) {
+      alert(
+        meal.coldmeal_available
+          ? "Your distance is more than 10km. You can order cold meal"
+          : "I'm Sorry! You can't get any meal for this menu because your location is more than 10km "
+      );
+    }
+    if ((distance > 10 && meal.coldmeal_available) || distance < 10) {
+      await service
+        .post(`/order/save/user/${auth_user_id}/meal/${meal.id}`, {
+          meal_id: meal.id,
+        })
+        .then((response) => {
+          alert("Meal ordered successfully");
+        })
+        .catch((error) => console.log(error));
+    }
+  };
   useEffect(() => {
     const getMeals = async () => {
       try {
@@ -91,7 +113,7 @@ if(distance >10){
     <Container fluid className="mt-5">
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Donate Us </Modal.Title>
+          <Modal.Title>Create Meal </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={(e) => e.preventDefault()}>
@@ -131,7 +153,7 @@ if(distance >10){
               <Form.Check // prettier-ignore
                 type="switch"
                 id="custom-switch"
-                label="Can Provide Cold Meals?"
+                label="Can Provide Cold Meals for users who are more than 10 km?"
                 style={{ fontSize: "14px" }}
                 checked={canProvideColdMeals}
                 onChange={handleChangeMeal}
@@ -161,13 +183,13 @@ if(distance >10){
               generosity feeds countless souls and warms our hearts. Thank you
               for making a differencal.
             </p>
-            {auth_user_role === "Partner"&&(
-            <div className="d-flex justify-content-center">
-              <Button variant="warning" onClick={handleShow}>
-                Register Meal to Support
-              </Button>
-            </div>
-)}
+            {auth_user_role === "Partner" && (
+              <div className="d-flex justify-content-center">
+                <Button variant="warning" onClick={handleShow}>
+                  Register Meal to Support
+                </Button>
+              </div>
+            )}
           </Card>
         </div>
       </div>
@@ -175,124 +197,131 @@ if(distance >10){
         {" "}
         "Available Meals for This Week:"
       </h4>
-      <Container>
-        <h5 className="mt-4 mb-2"> "Breakfast Menu"</h5>
-        <Row className="mb-5">
-          {meals
-            .filter((meal) => meal.tag === "Breakfast")
-            .map((meal) => (
-              <Col md={4} key={meal.id}>
-                <Card className="p-5 shadow">
-                  <Card.Title>
-                    <b>{meal.name}</b>
-                  </Card.Title>
-                  <p>{meal.description}</p>
-                  <p>Location : {meal.user.location}</p>
-                  <p>Contact No : {meal.user.phone}</p>
-                  <p>Donated By : {meal.user.userName}</p>
+      {meals.length && (
+        <>
+          <Container>
+            <h5 className="mt-4 mb-2"> "Breakfast Menu"</h5>
+            <Row className="mb-5">
+              {meals
+                .filter((meal) => meal.tag === "Breakfast")
+                .map((meal) => (
+                  <Col md={4} key={meal.id}>
+                    <Card className="p-5 shadow">
+                      <Card.Title>
+                        <b>{meal.name}</b>
+                      </Card.Title>
+                      <p>{meal.description}</p>
+                      <p>
+                        Location :{" "}
+                        {meal.user !== null ? meal.user.location : Yangon}
+                      </p>
+                      <p>Contact No : {meal.user.phone}</p>
+                      <p>Donated By : {meal.user.userName}</p>
 
-                  {parseInt(meal.user.usersId) === parseInt(auth_user_id) &&
-                    auth_user_role === "Partner" && (
-                      <Button
-                        variant="warning"
-                        onClick={() => handleEdit(meal)}
-                        className="w-100"
-                      >
-                        Edit
-                      </Button>
-                    )}
-                  {auth_user_role === "member" && (
-                    <Button
-                      variant="warning"
-                      onClick={() => orderMeal(meal)}
-                      className="w-100"
-                    >
-                      Order Now
-                    </Button>
-                  )}
-                </Card>
-              </Col>
-            ))}
-        </Row>
-      </Container>
-      <Container>
-        <h5 className="mt-4 mb-2"> "Lunch Menu"</h5>
-        <Row className="mb-5">
-          {meals
-            .filter((meal) => meal.tag === "Lunch")
-            .map((meal) => (
-              <Col md={4} key={meal.id}>
-                <Card className="p-5 shadow">
-                  <Card.Title>
-                    <b>{meal.name}</b>
-                  </Card.Title>
-                  <p>{meal.description}</p>
-                  <p>Location : {meal.user.location}</p>
-                  <p>Contact No : {meal.user.phone}</p>
-                  <p>Donated By : {meal.user.userName}</p>
-                  {parseInt(meal.user.usersId) === parseInt(auth_user_id) &&
-                    auth_user_role === "Partner" && (
-                      <Button
-                        variant="warning"
-                        onClick={() => handleEdit(meal)}
-                        className="w-100"
-                      >
-                        Edit
-                      </Button>
-                    )}
-                  {auth_user_role === "member" && (
-                    <Button
-                      variant="warning"
-                      onClick={() => orderMeal(meal)}
-                      className="w-100"
-                    >
-                 Order Now
-                    </Button>
-                  )}
-                </Card>
-              </Col>
-            ))}
-        </Row>
-      </Container>
-      <Container>
-        <h5 className="mt-4 mb-2"> "Dinner Menu"</h5>
-        <Row className="mb-5">
-          {meals
-            .filter((meal) => meal.tag === "Dinner")
-            .map((meal) => (
-              <Col md={4} key={meal.id}>
-                <Card className="p-5 shadow">
-                  <Card.Title>
-                    <b>{meal.name}</b>
-                  </Card.Title>
-                  <p>{meal.description}</p>
-                  <p>Location : {meal.user.location}</p>
-                  <p>Contact No : {meal.user.phone}</p>
-                  <p>Donated By : {meal.user.userName}</p>
-                  {parseInt(meal.user.usersId) === parseInt(auth_user_id) &&
-                    auth_user_role === "Partner" && (
-                      <Button
-                        variant="warning"
-                        onClick={() => handleEdit(meal)}
-                        className="w-100"
-                      >
-                        Edit
-                      </Button>
-                    )}
-                  {auth_user_role === "member" && (
-                    <Button
-                      variant="warning"
-                      onClick={() => orderMeal(meal)}
-                      className="w-100"
-                    >
-                       Order Now
-                    </Button>
-                  )}
-                </Card>
-              </Col>
-            ))}
-        </Row>
-      </Container>
+                      {parseInt(meal.user.usersId) === parseInt(auth_user_id) &&
+                        auth_user_role === "Partner" && (
+                          <Button
+                            variant="warning"
+                            onClick={() => handleEdit(meal)}
+                            className="w-100"
+                          >
+                            Edit
+                          </Button>
+                        )}
+                      {auth_user_role === "member" && (
+                        <Button
+                          variant="warning"
+                          onClick={() => orderMeal(meal)}
+                          className="w-100"
+                        >
+                          Order Now
+                        </Button>
+                      )}
+                    </Card>
+                  </Col>
+                ))}
+            </Row>
+          </Container>
+          <Container>
+            <h5 className="mt-4 mb-2"> "Lunch Menu"</h5>
+            <Row className="mb-5">
+              {meals
+                .filter((meal) => meal.tag === "Lunch")
+                .map((meal) => (
+                  <Col md={4} key={meal.id}>
+                    <Card className="p-5 shadow">
+                      <Card.Title>
+                        <b>{meal.name}</b>
+                      </Card.Title>
+                      <p>{meal.description}</p>
+                      <p>Location : {meal.user.location}</p>
+                      <p>Contact No : {meal.user.phone}</p>
+                      <p>Donated By : {meal.user.userName}</p>
+                      {parseInt(meal.user.usersId) === parseInt(auth_user_id) &&
+                        auth_user_role === "Partner" && (
+                          <Button
+                            variant="warning"
+                            onClick={() => handleEdit(meal)}
+                            className="w-100"
+                          >
+                            Edit
+                          </Button>
+                        )}
+                      {auth_user_role === "member" && (
+                        <Button
+                          variant="warning"
+                          onClick={() => orderMeal(meal)}
+                          className="w-100"
+                        >
+                          Order Now
+                        </Button>
+                      )}
+                    </Card>
+                  </Col>
+                ))}
+            </Row>
+          </Container>
+          <Container>
+            <h5 className="mt-4 mb-2"> "Dinner Menu"</h5>
+            <Row className="mb-5">
+              {meals
+                .filter((meal) => meal.tag === "Dinner")
+                .map((meal) => (
+                  <Col md={4} key={meal.id}>
+                    <Card className="p-5 shadow">
+                      <Card.Title>
+                        <b>{meal.name}</b>
+                      </Card.Title>
+                      <p>{meal.description}</p>
+                      <p>Location : {meal.user.location}</p>
+                      <p>Contact No : {meal.user.phone}</p>
+                      <p>Donated By : {meal.user.userName}</p>
+                      {parseInt(meal.user.usersId) === parseInt(auth_user_id) &&
+                        auth_user_role === "Partner" && (
+                          <Button
+                            variant="warning"
+                            onClick={() => handleEdit(meal)}
+                            className="w-100"
+                          >
+                            Edit
+                          </Button>
+                        )}
+                      {auth_user_role === "member" && (
+                        <Button
+                          variant="warning"
+                          onClick={() => orderMeal(meal)}
+                          className="w-100"
+                        >
+                          Order Now
+                        </Button>
+                      )}
+                    </Card>
+                  </Col>
+                ))}
+            </Row>
+          </Container>
+        </>
+      )}
     </Container>
   );
 };

@@ -4,7 +4,14 @@ import service from '../api/apiFetching';
 import { Button , Table , Container } from 'react-bootstrap';
 const Admin = () => {
   const [usersData, setUserData] = useState([]);
-
+  const acceptUser = async (user) => {
+    await service.put(`/user/${user.usersId}`,{
+      "emailVerified" : true
+    }).then((response) => {
+      console.log(response.data);
+      setUserData(response.data);
+    });
+  }
   useEffect(() => {
     const getAllUsersData = async () => {
       try {
@@ -58,6 +65,7 @@ const Admin = () => {
             ) : (
               <tr></tr>
             )}
+            
           </tbody>
         </Table>
     

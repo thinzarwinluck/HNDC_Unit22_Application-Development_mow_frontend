@@ -8,6 +8,7 @@ import Meal from "./meal/Meal";
 import Volunteer from "./volunteer/Volunteer";
 import Register from "./register/Register";
 import Login from "./login/Login";
+import Order from "./admin/Order"
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/member" element={<Volunteer />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/order" element={<Order />} />
         </Route>
       </Routes>
     </BrowserRouter>
