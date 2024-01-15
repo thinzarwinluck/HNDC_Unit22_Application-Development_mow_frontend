@@ -5,46 +5,71 @@ import { Button , Table , Container , Modal ,Form} from 'react-bootstrap';
 const Admin = () => {
   const [usersData, setUserData] = useState([]);
   const [user, setUser] = useState([]);
-  const [chooseSelected, setChooseSelected] = useState(null);
+  const [chooseSelected, setChooseSelected] = useState('');
   const [formType, setFormType] = useState("Volunteer");
   const [id , setId]=useState(null);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = async(user) => {
     await service.get('/user/getAll').then((response) => {
-      console.log(user)
       setUser(response.data);
     setId(user.ordersId);
     setShow(true);
     })
   }
 
-  const addMeal = async() => {
-    console.log(chooseSelected)
-    const data = {
 
-      "volunteer_id" : chooseSelected.usersId,
-      "volunteer_name" : chooseSelected.userName,
-      "caregiver_id": chooseSelected.usersId,
-      "caregiver_name": chooseSelected.userName,
-      "_.method" : "PUT"
-    }
-    formType === 'Volunteer' ? await service.put(`/order/assign/volunteer/${id}`,data) : await service.put(`/order/assign/care-giver/${id}`,data)}
-
-  useEffect(() => {
-    const getMeals = async () => {
-      try {
-        const response = await service.get('/order/getAll');
-        setUserData(response.data);
-      } catch (error) {
-        console.error("Error fetching meals:", error);
+  const fetchMeals = async () => {
+    try {
+      const response = await service.get('/order/getAll');
+      let user = null;
+      const userIdString = localStorage.getItem('user_id');
+      const userIdNumber = parseInt(userIdString, 10);
+  
+      switch (localStorage.getItem('user_role')) {
+        case 'member':
+          user = response.data.filter((item) => item.user.usersId === userIdNumber);
+          break;
+  
+        case 'Volunteer':
+          user = response.data.filter((item) => item.volunteer_id === userIdNumber);
+          break;
+  
+        case 'Care-Giver':
+          user = response.data.filter((item) => item.caregiver_id === userIdNumber);
+          break;
+  
+        default:
+          user = response.data;
+          break;
       }
-    };
-    if (user.length > 0) {
-      setChooseSelected(user[0]);
+  
+      setUserData(user);
+    } catch (error) {
+      console.error("Error fetching meals:", error);
     }
-    getMeals();
+  };
+  
+  const addMeal = async () => {
+    console.log(chooseSelected);
+    const data = {
+      volunteer_id: chooseSelected.usersId,
+      volunteer_name: chooseSelected.userName,
+      caregiver_id: chooseSelected.usersId,
+      caregiver_name: chooseSelected.userName,
+    };
+    if (formType === "Volunteer") {
+      await service.put(`/order/assign/volunteer/${id}`, data);
+    } else {
+      await service.put(`/order/assign/care-giver/${id}`, data);
+    }
+    await fetchMeals();
+  };
+  
+  useEffect(() => {
+    fetchMeals();
   }, [user]);
+  
 
   return (
     <Container fluid className="mt-5">
@@ -68,20 +93,22 @@ const Admin = () => {
                 ))}
               </Form.Select>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="user">
-              <Form.Select
-                style={{ fontSize: "14px" }}
-                value={chooseSelected}
-                onChange={(e) => setChooseSelected(e.target.value)}
-                className="w-100"
-              >
-                {user.filter(u=>u.role === formType).map((type) => (
-                  <option key={type} value={type}>
-                    {type.userName}
-                  </option>
-                ))}
-              </Form.Select>
-            </Form.Group>
+            <Form.Select
+  value={chooseSelected.userName}
+  onChange={(e) => {
+    const selectedUser = user.find(u => u.userName === e.target.value) || {};
+    setChooseSelected(selectedUser);
+  }}
+  className="w-100"
+>
+  {user.filter(u => u.role === formType).map((type, index) => (
+    <option key={index} value={type.userName}>
+      {type.userName}
+    </option>
+  ))}
+</Form.Select>
+
+           
             
           </Form>
           
@@ -95,7 +122,7 @@ const Admin = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-        <h1 className='pt-3'>Admin Dashboard</h1>
+        <h1 className='pt-3'>Order</h1>
         <Table responsive>
           <thead>
             <tr>
@@ -105,6 +132,7 @@ const Admin = () => {
               <th>User Name</th>
               <th>User Health Information</th>
               <th>Volunteer Name</th>
+              <th>Care-giver Name</th>
               <th>User Location</th>
               <th>Partner Location</th>
              
@@ -120,10 +148,10 @@ const Admin = () => {
                   <td>{user.meal!== null ? user.meal.user.userName : ''}</td>
                   <td>{user.user.userName}</td>
                   <td>{user.user.health}</td>
-                  <td>Kyaw Wana</td>
+                  <td>{user.volunteer_name === null ? 'Not Assigned':user.volunteer_name}</td>
+                  <td>{user.caregiver_name === null ? 'Not Assigned':user.caregiver_name}</td>
                   <td>{user.user.location}</td>
                   <td>{user.meal!== null ? user.meal.user.location : ''}</td>
-                  
                   <td>{localStorage.getItem('user_role') === 'admin' && (  <Button variant="primary" onClick={()=>handleShow(user)}>
                   Assign Volunteer or Care-Giver
                 </Button>)}</td>
