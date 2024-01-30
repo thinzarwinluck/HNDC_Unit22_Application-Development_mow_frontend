@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { Button, Card, Image, Container } from "react-bootstrap";
 import { aboutUs, logo } from "../data";
 
-import "./Home.css";
+import "./home.css";
 
 const Home = () => {
   return (
