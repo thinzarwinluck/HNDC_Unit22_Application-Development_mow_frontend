@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import "../home/Home.css";
 import service from "../api/apiFetching";
 import axios from "axios";
 import { Link } from "react-router-dom";
